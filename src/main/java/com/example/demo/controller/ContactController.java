@@ -3,16 +3,15 @@ package com.example.demo.controller;
 import com.example.demo.model.Contact;
 import com.example.demo.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class ContactController {
@@ -48,8 +47,20 @@ public class ContactController {
             return "contact";
         }
         contactService.saveMessageDetails(contact);
-        contactService.setCounter(contactService.getCounter() + 1);
-        System.out.println("number of times the contact form is submitted:" + contactService.getCounter());
         return "redirect:/contact";
+    }
+
+    @RequestMapping(path = "/displayMessages")
+    public ModelAndView displayMessages(Model model) {
+        List<Contact> contactMsgs = contactService.findMsgsWithOpenStatus();
+        ModelAndView modelAndView = new ModelAndView("messages");
+        modelAndView.addObject("contactMsgs", contactMsgs);
+        return modelAndView;
+    }
+
+    @GetMapping(path = "/closeMsg")
+    public String closeMsg(@RequestParam int id /*, Authentication authentication*/) {
+        contactService.updateMsgStatus(id /*, authentication.getName()*/);
+        return "redirect:/displayMessages";
     }
 }

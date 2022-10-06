@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
-@ControllerAdvice
+//@ControllerAdvice
 public class GlobalExceptionController {
 
     @ExceptionHandler(Exception.class)
@@ -12,6 +12,7 @@ public class GlobalExceptionController {
         ModelAndView errorPage = new ModelAndView();
         errorPage.setViewName("error");
         errorPage.addObject("errorMsg", exception.getMessage());
+        exception.printStackTrace();
         return errorPage;
     }
 }
