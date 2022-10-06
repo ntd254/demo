@@ -72,7 +72,7 @@ public class ProjectSecurityConfig /*extends WebSecurityConfigurerAdapter*/ {
                 .and()
                     .authorizeRequests()
                         .mvcMatchers("/dashboard", "/displayProfile", "/updateProfile", "/saveMsg").authenticated()
-                        .mvcMatchers("/displayMessages", "/closeMsg").hasRole("ADMIN")
+                        .mvcMatchers("/displayMessages", "/closeMsg", "/admin/**").hasRole("ADMIN")
                         .mvcMatchers("/**").permitAll()
                 .and()
                     .httpBasic()
