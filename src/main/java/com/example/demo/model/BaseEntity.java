@@ -1,6 +1,10 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -12,21 +16,29 @@ import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
 @MappedSuperclass /* child class will have this field in database */
 @EntityListeners(AuditingEntityListener.class)
 public class BaseEntity {
 
     @CreatedDate
     @Column(updatable = false)
+    @JsonIgnore
     private LocalDateTime createdAt;
+
     @CreatedBy
     @Column(updatable = false)
+    @JsonIgnore
     private String createdBy;
+
     @LastModifiedDate
     @Column(insertable = false)
+    @JsonIgnore
     private LocalDateTime updatedAt;
+
     @LastModifiedBy
     @Column(insertable = false)
+    @JsonIgnore
     private String updatedBy;
 }

@@ -1,12 +1,15 @@
 package com.example.demo.model;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
-@Data
+//@Data
+//@EqualsAndHashCode(callSuper = false)
+@Setter
+@Getter
 @Entity
 @Table(name = "class")
 public class EazyClass extends BaseEntity{
@@ -18,6 +21,7 @@ public class EazyClass extends BaseEntity{
     @NotBlank(message = "Name must not be blank")
     private String name;
 
-    @OneToMany(mappedBy = "eazyClass", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, targetEntity = Person.class)
+    @OneToMany(mappedBy = "eazyClass", fetch = FetchType.LAZY,
+            targetEntity = Person.class)
     private Set<Person> personSet;
 }

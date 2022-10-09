@@ -68,11 +68,12 @@ public class ProjectSecurityConfig /*extends WebSecurityConfigurerAdapter*/ {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().ignoringAntMatchers("/saveMsg", "/public/**"/*, "/h2-console/**"*/)
+                .csrf().ignoringAntMatchers("/saveMsg", "/public/**", "/api/**"/*, "/h2-console/**"*/)
                 .and()
                     .authorizeRequests()
-                        .mvcMatchers("/dashboard", "/displayProfile", "/updateProfile", "/saveMsg").authenticated()
+                        .mvcMatchers("/dashboard", "/displayProfile", "/updateProfile", "/saveMsg", "/api/**").authenticated()
                         .mvcMatchers("/displayMessages", "/closeMsg", "/admin/**").hasRole("ADMIN")
+                        .mvcMatchers("/student/**").hasRole("STUDENT")
                         .mvcMatchers("/**").permitAll()
                 .and()
                     .httpBasic()

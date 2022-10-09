@@ -2,8 +2,7 @@ package com.example.demo.model;
 
 import com.example.demo.annotation.FieldsValueMatch;
 import com.example.demo.annotation.PasswordValidator;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -11,9 +10,11 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
 
-@Data
-@EqualsAndHashCode(callSuper = true)
+@Setter
+@Getter
 @Entity
 @FieldsValueMatch.List({
         @FieldsValueMatch(field = "pwd",fieldMatch = "confirmPwd", message = "Password don't match!"),
@@ -52,15 +53,36 @@ public class Person extends BaseEntity{
     @Transient
     private String confirmPwd;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, targetEntity = Roles.class)
+    @OneToOne(fetch = FetchType.EAGER, targetEntity = Roles.class)
     @JoinColumn(name = "role_id", referencedColumnName = "roleId", nullable = false)
     private Roles roles;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Address.class)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL,targetEntity = Address.class)
     @JoinColumn(name = "address_id", referencedColumnName = "addressId", nullable = true)
     private Address address;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "class_id", referencedColumnName = "classId")
     private EazyClass eazyClass;
+
+    @ManyToMany(fetch = FetchType.EAGER, targetEntity = Courses.class)
+    @JoinTable(name = "person_courses",
+            joinColumns = @JoinColumn(name = "person_id", referencedColumnName = "personId"),
+            inverseJoinColumns = @JoinColumn(name = "course_id", referencedColumnName = "courseId"))
+    private Set<Courses> courses = new HashSet<>();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Person person = (Person) o;
+
+        return personId == person.personId;
+    }
+
+    @Override
+    public int hashCode() {
+        return personId;
+    }
 }

@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.Logger;
 
 @Service
 //@RequestScope
@@ -36,19 +37,22 @@ public class ContactService {
 
     public List<Contact> findMsgsWithOpenStatus() {
         List<Contact> contactMsgs = contactRepository.findContactsByStatus(DemoConstants.OPEN);
+        System.out.println(contactRepository.count(DemoConstants.OPEN));
         return contactMsgs;
     }
 
     public boolean updateMsgStatus(int contactId/*, String updatedBy*/) {
-        AtomicBoolean isUpdated = new AtomicBoolean(false);
-        Optional<Contact> contact = contactRepository.findById(contactId);
-        contact.ifPresent(contact1 -> {
-            contact1.setStatus(DemoConstants.CLOSE);
-            /*contact1.setUpdatedBy(updatedBy);
-            contact1.setUpdatedAt(LocalDateTime.now()); replace by jpa auditing*/
-            Contact updatedContact = contactRepository.save(contact1);
-            if (updatedContact.getUpdatedBy() != null) isUpdated.set(true);
-        });
-        return isUpdated.get();
+//        AtomicBoolean isUpdated = new AtomicBoolean(false);
+//        Optional<Contact> contact = contactRepository.findById(contactId);
+//        contact.ifPresent(contact1 -> {
+//            contact1.setStatus(DemoConstants.CLOSE);
+//            /*contact1.setUpdatedBy(updatedBy);
+//            contact1.setUpdatedAt(LocalDateTime.now()); replace by jpa auditing*/
+//            Contact updatedContact = contactRepository.save(contact1);
+//            if (updatedContact.getUpdatedBy() != null) isUpdated.set(true);
+//        });
+//        return isUpdated.get();
+        int rowAffected = contactRepository.updateStatusById(DemoConstants.CLOSE, contactId);
+        return rowAffected > 0;
     }
 }
