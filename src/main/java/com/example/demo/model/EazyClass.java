@@ -6,8 +6,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
-//@Data
-//@EqualsAndHashCode(callSuper = false)
 @Setter
 @Getter
 @Entity

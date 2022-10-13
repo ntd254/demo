@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-//@Controller
 @RestController
 @RequestMapping("/api/v1/contact")
 public class ContactRestController {
@@ -28,7 +27,6 @@ public class ContactRestController {
     }
 
     @GetMapping("/getMessageByStatus")
-//    @ResponseBody
     public List<Contact> getMessageByStatus(@RequestParam String status) {
         return contactRepository.findContactsByStatus(status);
     }

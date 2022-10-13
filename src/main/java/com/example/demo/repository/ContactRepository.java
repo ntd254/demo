@@ -32,7 +32,7 @@ public interface ContactRepository extends CrudRepository<Contact, Integer> {
 
 }
 
-/* Use for Spring jdbc
+/*
 public class ContactRepository {
 
     private final JdbcTemplate jdbcTemplate;

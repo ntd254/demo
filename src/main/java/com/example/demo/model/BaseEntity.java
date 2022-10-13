@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@MappedSuperclass /* child class will have this field in database */
+@MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class BaseEntity {
 

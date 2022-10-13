@@ -13,9 +13,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Logger;
 
 @Service
-//@RequestScope
-//@SessionScope
-//@ApplicationScope
 public class ContactService {
 
     private final ContactRepository contactRepository;
@@ -28,8 +25,6 @@ public class ContactService {
     public boolean saveMessageDetails(Contact contact) {
         boolean isSaved = false;
         contact.setStatus(DemoConstants.OPEN);
-        /*contact.setCreatedAt(LocalDateTime.now());
-        contact.setCreatedBy(DemoConstants.ANONYMOUS); replace by jpa auditing  */
         Contact savedContact = contactRepository.save(contact);
         if (savedContact.getContactId() > 0) isSaved = true;
         return isSaved;
@@ -41,7 +36,7 @@ public class ContactService {
         return contactMsgs;
     }
 
-    public boolean updateMsgStatus(int contactId/*, String updatedBy*/) {
+    public boolean updateMsgStatus(int contactId) {
 //        AtomicBoolean isUpdated = new AtomicBoolean(false);
 //        Optional<Contact> contact = contactRepository.findById(contactId);
 //        contact.ifPresent(contact1 -> {

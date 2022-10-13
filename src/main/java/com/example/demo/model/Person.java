@@ -1,9 +1,7 @@
 package com.example.demo.model;
 
-import com.example.demo.annotation.FieldsValueMatch;
-import com.example.demo.annotation.PasswordValidator;
+
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -16,10 +14,6 @@ import java.util.Set;
 @Setter
 @Getter
 @Entity
-@FieldsValueMatch.List({
-        @FieldsValueMatch(field = "pwd",fieldMatch = "confirmPwd", message = "Password don't match!"),
-        @FieldsValueMatch(field = "email", fieldMatch = "confirmEmail", message = "Email addresses don't match")
-})
 public class Person extends BaseEntity{
 
     @Id
@@ -27,10 +21,8 @@ public class Person extends BaseEntity{
     private int personId;
 
     @NotBlank(message = "Name must not be blank")
-    @Size(min = 3, message = "Name must be at least 3 characters long")
     private String name;
 
-    @NotBlank(message = "Mobile number must not be blank")
     @Pattern(regexp = "[0-9]{10}", message = "Mobile number must be 10 digits")
     private String mobileNumber;
 
@@ -44,12 +36,9 @@ public class Person extends BaseEntity{
     private String confirmEmail;
 
     @NotBlank(message = "Password must not be blank")
-    @Size(min = 5, message = "Password must be at least 5 characters long")
-    @PasswordValidator
     private String pwd;
 
     @NotBlank(message = "Password must not be blank")
-    @Size(min = 5, message = "Password must be at least 5 characters long")
     @Transient
     private String confirmPwd;
 

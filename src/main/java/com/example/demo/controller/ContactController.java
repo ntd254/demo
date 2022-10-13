@@ -29,17 +29,6 @@ public class ContactController {
         return "contact";
     }
 
-//    @RequestMapping(path = "/saveMsg", method = RequestMethod.POST)
-//    public ModelAndView saveMessage(@RequestParam String name, @RequestParam String mobileNum,
-//                                    @RequestParam String email, @RequestParam String subject, @RequestParam String message) {
-//        System.out.println(name);
-//        System.out.println(mobileNum);
-//        System.out.println(email);
-//        System.out.println(subject);
-//        System.out.println(message);
-//        return new ModelAndView("redirect:contact");
-//    }
-
     @RequestMapping(path = "/saveMsg", method = RequestMethod.POST)
     public String saveMessage(@Valid @ModelAttribute(name = "contact") Contact contact, Errors errors) {
         if (errors.hasErrors()) {
@@ -59,8 +48,8 @@ public class ContactController {
     }
 
     @GetMapping(path = "/closeMsg")
-    public String closeMsg(@RequestParam int id /*, Authentication authentication*/) {
-        contactService.updateMsgStatus(id /*, authentication.getName()*/);
+    public String closeMsg(@RequestParam int id) {
+        contactService.updateMsgStatus(id);
         return "redirect:/displayMessages";
     }
 }

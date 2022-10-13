@@ -16,7 +16,7 @@ public interface HolidaysRepository extends CrudRepository<Holiday, String> {
 }
 
 
-/* Use for Spring jdbc
+/*
 public class HolidaysRepository {
 
     private final JdbcTemplate jdbcTemplate;

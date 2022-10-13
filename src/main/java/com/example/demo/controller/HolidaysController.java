@@ -43,19 +43,4 @@ public class HolidaysController {
         }
         return "holidays";
     }
-
-//    @GetMapping("/holidays")
-//    public String displayHolidays(@RequestParam(required = false) boolean festival ,
-//                                  @RequestParam(required = false) boolean federal, Model model) {
-//        System.out.println(festival);
-//        model.addAttribute("festival", festival);
-//        model.addAttribute("federal", federal);
-//        List<Holiday> holidays = holidaysRepository.findAllHolidays();
-//        Holiday.Type[] types = Holiday.Type.values();
-//        for (Holiday.Type type : types) {
-//            model.addAttribute(type.toString(),
-//                    (holidays.stream().filter(holiday -> holiday.getType().equals(type)).collect(Collectors.toList())));
-//        }
-//        return "holidays";
-//    }
 }

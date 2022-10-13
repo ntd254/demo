@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice(basePackages = "com.example.demo.rest")
-public class GlobalExceptionRestController /*extends ResponseEntityExceptionHandler*/ {
+public class GlobalExceptionRestController {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> exceptionHandler(Exception exception, HttpServletRequest request) {
