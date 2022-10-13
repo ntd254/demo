@@ -11,8 +11,8 @@ import org.springframework.stereotype.Controller;
 
 //@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 @SpringBootApplication
-@EnableJpaRepositories(basePackages = "com.example.demo.repository")
-@EntityScan(basePackages = "com.example.demo.model")
+@EnableJpaRepositories(/*basePackages = "com.example.demo.repository"*/)
+@EntityScan(/*basePackages = "com.example.demo.model"*/)
 @EnableJpaAuditing(auditorAwareRef = "auditAwareImpl")
 public class DemoApplication {
 

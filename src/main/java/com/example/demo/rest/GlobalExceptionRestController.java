@@ -15,10 +15,10 @@ import java.util.Map;
 public class GlobalExceptionRestController /*extends ResponseEntityExceptionHandler*/ {
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Map<String, String>> exceptionHandler(Exception exception, HttpServletRequest request) {
-        Map<String, String> response = new HashMap<>();
+    public ResponseEntity<Map<String, Object>> exceptionHandler(Exception exception, HttpServletRequest request) {
+        Map<String, Object> response = new HashMap<>();
         response.put("path", request.getRequestURI());
-        response.put("status", String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR));
+        response.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
         response.put("message", exception.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
